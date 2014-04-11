@@ -1,0 +1,16 @@
+@(productForm: Form[Product])
+@import helper._
+@import helper.twitterBootstrap._
+@main("Product form") {
+<h1>Product form</h1>
+@helper.form(action = routes.Products.save()) {
+<fieldset>
+    <legend>Product (@productForm("name").valueOr("New"))</legend>
+    @helper.inputText(productForm("ean"), '_label -> "EAN")
+    @helper.inputText(productForm("name"),'_label -> "Name")
+    @helper.textarea(productForm("description"), '_label -> "Description")
+</fieldset>
+<input type="submit" class="btn btn-primary" value="Save">
+<a class="btn" href="@routes.Application.index()">Cancel</a>
+}
+}
