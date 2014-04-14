@@ -30,7 +30,7 @@ public class Products extends Controller {
             return notFound(String.format("Product %s does not exist.", ean));
         }
         List<Product> result = Arrays.asList(product);
-        return ok(list.render(result));
+        return ok(details.render(productForm.fill(product)));
     }
     @Transactional
     public static Result newProduct(){
@@ -44,7 +44,7 @@ public class Products extends Controller {
             return badRequest(details.render(boundForm));
         }
         Product product = boundForm.get();
-        productDao.create(product);
+        productDao.createUpdate(product);
         flash("success",
                 String.format("Successfully added product %s", product));
         return redirect(routes.Products.list());

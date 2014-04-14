@@ -19,12 +19,7 @@ public class ProductHibernateDaoImpl implements IProductDao {
     }
 
     @Override
-    public void create(Product p) {
-        JPA.em().persist(p);
-    }
-
-    @Override
-    public void update(Product p) {
+    public void createUpdate(Product p) {
         JPA.em().merge(p);
     }
 
