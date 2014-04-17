@@ -1,5 +1,6 @@
 package models;
 
+import models.validators.EAN;
 import play.data.validation.Constraints;
 
 import javax.persistence.Entity;
@@ -10,11 +11,13 @@ import javax.persistence.NamedQuery;
 @NamedQuery(name="Product.findAll", query="SELECT c FROM Product c")
 public class Product {
     @Id
+    @EAN
     @Constraints.Required
     public String ean;
     @Constraints.Required
     public String name;
     public String description;
+
     public Product() {}
     public Product(String ean, String name, String description) {
         this.ean = ean;

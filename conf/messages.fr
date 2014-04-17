@@ -1,0 +1,1 @@
+error.invalid.ean=Ean doit être un nombre de 13 chiffres
