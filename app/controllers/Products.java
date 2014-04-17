@@ -1,7 +1,7 @@
 package controllers;
 
 import dao.IProductDao;
-import dao.ProductHibernateDaoImpl;
+import dao.ProductJpaDaoImpl;
 import models.Product;
 import play.data.Form;
 import play.db.jpa.Transactional;
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class Products extends Controller {
 
-    private static IProductDao productDao = new ProductHibernateDaoImpl();
+    private static IProductDao productDao = new ProductJpaDaoImpl();
     private static final Form<Product> productForm = Form
             .form(Product.class);
     @Transactional(readOnly=true)

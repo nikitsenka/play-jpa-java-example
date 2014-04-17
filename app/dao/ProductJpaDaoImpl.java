@@ -6,7 +6,7 @@ import play.db.jpa.JPA;
 
 import java.util.List;
 
-public class ProductHibernateDaoImpl implements IProductDao {
+public class ProductJpaDaoImpl implements IProductDao {
 
     @Override
     public List<Product> findAll() {
