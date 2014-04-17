@@ -5,6 +5,7 @@ import play.data.validation.Constraints;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQuery;
 
 @Entity
@@ -17,6 +18,8 @@ public class Product {
     @Constraints.Required
     public String name;
     public String description;
+    @Lob
+    public byte[] picture;
 
     public Product() {}
     public Product(String ean, String name, String description) {
