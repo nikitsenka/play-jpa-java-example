@@ -19,8 +19,8 @@ public class ProductJpaDaoImpl implements IProductDao {
     }
 
     @Override
-    public void createUpdate(Product p) {
-        JPA.em().merge(p);
+    public Product createUpdate(Product p) {
+        return JPA.em().merge(p);
     }
 
     @Override
