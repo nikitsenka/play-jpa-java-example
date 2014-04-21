@@ -21,8 +21,11 @@
         <td><a href="@routes.Products.details(product.ean)">
             @product.description</a></td>
         <td>
+        <td>
+            <a href="@routes.Products.details(product.ean)">
+                <i class="icon icon-pencil"></i></a>
             <a onclick="del('@routes.Products.delete(product.ean)')">
-                <i class="icon icon-trash"></i>delete</a>
+                <i class="icon icon-trash"></i></a>
         </td>
     </tr>
     }
