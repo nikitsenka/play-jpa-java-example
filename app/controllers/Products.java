@@ -8,6 +8,7 @@ import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
+import play.mvc.Security;
 import views.html.details;
 import views.html.list;
 
@@ -18,7 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
-
+@Security.Authenticated(Secured.class)
 public class Products extends Controller {
 
     private static IProductDao productDao = new ProductJpaDaoImpl();

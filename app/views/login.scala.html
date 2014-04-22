@@ -1,0 +1,13 @@
+@(loginForm: Form[User])
+@main("Please sign in to the warehouse application") {
+    <h1>User form</h1>
+    @helper.form(helper.CSRF(routes.Application.authenticate)) {
+        <fieldset>
+            @helper.inputText(loginForm("email"), '_label -> "email")
+            @helper.inputPassword(loginForm("password"), '_label -> "password")
+        </fieldset>
+        <input type="submit" class="btn btn-primary" value="Sign in">
+        <a href="@routes.Users.newUser()" class="btn">
+            <i class="icon-plus"></i> Register new user</a>
+    }
+}

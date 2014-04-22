@@ -1,0 +1,15 @@
+@(userFrom: Form[User])
+@import helper.twitterBootstrap._
+@main("User form") {
+    <h1>User form</h1>
+    @helper.form(action = helper.CSRF(routes.Users.save())) {
+
+        <fieldset>
+            <legend>User (@userFrom("name").valueOr("New"))</legend>
+            @helper.inputText(userFrom("email"), '_label -> "email")
+            @helper.inputPassword(userFrom("password"), '_label -> "password")
+        </fieldset>
+        <input type="submit" class="btn btn-primary" value="Save">
+        <a class="btn" href="@routes.Application.login()">Cancel</a>
+    }
+}
