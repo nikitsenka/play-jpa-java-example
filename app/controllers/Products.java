@@ -5,6 +5,7 @@ import dao.ProductJpaDaoImpl;
 import models.Product;
 import play.data.Form;
 import play.db.jpa.Transactional;
+import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -34,7 +35,7 @@ public class Products extends Controller {
     public static Result details(String ean){
         Product product = productDao.findById(ean);
         if (product == null) {
-            return notFound(String.format("Product %s does not exist.", ean));
+            return notFound(String.format(Messages.get("error.prod.notExist"), ean));
         }
         List<Product> result = Arrays.asList(product);
         return ok(details.render(productForm.fill(product)));
@@ -47,7 +48,7 @@ public class Products extends Controller {
     public static Result save() {
         Form<Product> boundForm = productForm.bindFromRequest();
         if(boundForm.hasErrors()) {
-            flash("error", "Please correct the form below.");
+            flash("error", Messages.get("error.form"));
             return badRequest(details.render(boundForm));
         }
         Product product = boundForm.get();
@@ -59,12 +60,12 @@ public class Products extends Controller {
                 Path path = Paths.get(picture.getPath());
                 product.picture = Files.readAllBytes(path);
             } catch (IOException e) {
-                return internalServerError("Error reading file upload");
+                return internalServerError(Messages.get("error.form.file"));
             }
         }
         productDao.createUpdate(product);
         flash("success",
-                String.format("Successfully added product %s", product));
+                String.format(Messages.get("success.add"), product));
         return redirect(routes.Products.list());
     }
     @Transactional

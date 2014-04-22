@@ -5,9 +5,11 @@ import dao.UserJpaDaoImpl;
 import models.User;
 import play.data.Form;
 import play.db.jpa.Transactional;
+import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.login;
+import views.html.registration;
 
 import static play.data.Form.form;
 
@@ -22,10 +24,14 @@ public class Application  extends Controller {
     public static Result authenticate() {
         Form<User> loginForm = form(User.class)
                 .bindFromRequest();
+        if(loginForm.hasErrors()) {
+            flash("error", Messages.get("error.form"));
+            return badRequest(login.render(loginForm));
+        }
         String email = loginForm.get().email;
         String password = loginForm.get().password;
         if (userDao.find(email, password) == null){
-            return forbidden("invalid password");
+            return forbidden(Messages.get("error.form.pass"));
         }
         session().clear();
         session("email", email);

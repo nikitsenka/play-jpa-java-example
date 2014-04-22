@@ -5,6 +5,7 @@ import dao.UserJpaDaoImpl;
 import models.User;
 import play.data.Form;
 import play.db.jpa.Transactional;
+import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.registration;
@@ -17,18 +18,18 @@ public class Users extends Controller {
     public static Result save(){
         Form<User> boundForm = userForm.bindFromRequest();
         if(boundForm.hasErrors()) {
-            flash("error", "Please correct the form below.");
+            flash("error", Messages.get("error.form"));
             return badRequest(registration.render(boundForm));
         }
         User user = boundForm.get();
         User searchResult = userDao.find(user.email);
         if(searchResult != null){
-            flash("error", "The user with the same email already exist");
+            flash("error", Messages.get("error.user.exist"));
             return badRequest(registration.render(userForm));
         }
         userDao.create(user);
         flash("success",
-                String.format("Successfully added user %s", user.email));
+                String.format(Messages.get("success.add"), user.email));
         return redirect(routes.Application.login());
     }
     @Transactional
