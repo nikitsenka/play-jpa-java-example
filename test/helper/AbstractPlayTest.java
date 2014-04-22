@@ -9,6 +9,8 @@ import play.test.Helpers;
 import scala.Option;
 
 import javax.persistence.EntityManager;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AbstractPlayTest {
     protected EntityManager em;
@@ -21,10 +23,12 @@ public class AbstractPlayTest {
                 app.getWrappedApplication().plugin(JPAPlugin.class);
         em = jpaPlugin.get().em("default");
         JPA.bindForCurrentThread(em);
+        em.getTransaction().begin();
     }
 
     @After
     public void tearDown() {
+        em.getTransaction().commit();
         JPA.bindForCurrentThread(null);
         em.close();
     }
